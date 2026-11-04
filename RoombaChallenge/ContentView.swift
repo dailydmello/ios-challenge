@@ -1,9 +1,13 @@
 import SwiftUI
 
-// The single screen of the app; the whole Roomba game lives here.
 struct ContentView: View {
     var body: some View {
-        Text("Roomba")
+        VStack(spacing: 16) {
+            Text("Roomba")
+                .font(.title.bold())
+            GridView(position: Position(x: 0, y: 0), direction: .north)
+        }
+        .padding()
     }
 }
 
