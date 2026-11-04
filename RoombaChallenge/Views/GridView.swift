@@ -8,22 +8,28 @@ struct GridView: View {
     private let spacing: CGFloat = 2
 
     var body: some View {
-        let columns = Array(repeating: GridItem(.flexible(), spacing: spacing), count: gridSize)
-        LazyVGrid(columns: columns, spacing: spacing) {
+        GeometryReader { proxy in
+            let side = min(proxy.size.width, proxy.size.height)
+            let cellSide = (side - spacing * CGFloat(gridSize - 1)) / CGFloat(gridSize)
             // Top row (y = gridSize - 1) comes first so north points up.
-            ForEach((0..<gridSize).reversed(), id: \.self) { y in
-                ForEach(0..<gridSize, id: \.self) { x in
-                    cell(isRoomba: position == Position(x: x, y: y))
+            VStack(spacing: spacing) {
+                ForEach((0..<gridSize).reversed(), id: \.self) { y in
+                    HStack(spacing: spacing) {
+                        ForEach(0..<gridSize, id: \.self) { x in
+                            cell(isRoomba: position == Position(x: x, y: y), side: cellSide)
+                        }
+                    }
                 }
             }
+            .frame(width: side, height: side)
         }
         .aspectRatio(1, contentMode: .fit)
     }
 
-    private func cell(isRoomba: Bool) -> some View {
+    private func cell(isRoomba: Bool, side: CGFloat) -> some View {
         RoundedRectangle(cornerRadius: 4)
             .fill(isRoomba ? Color.accentColor : Color.secondary.opacity(0.15))
-            .aspectRatio(1, contentMode: .fit)
+            .frame(width: side, height: side)
             .overlay {
                 if isRoomba {
                     Image(systemName: "arrow.up")
@@ -56,6 +62,16 @@ private extension Direction {
 
 #Preview("(9,9) south") {
     GridView(position: Position(x: 9, y: 9), direction: .south).padding()
+}
+
+#Preview("Inside a VStack with spacers") {
+    VStack {
+        Text("Title")
+        GridView(position: Position(x: 0, y: 0), direction: .north)
+        Spacer()
+        Text("Footer")
+    }
+    .padding()
 }
 
 #Preview("(0,9) west") {

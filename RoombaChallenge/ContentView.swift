@@ -1,11 +1,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var viewModel = RoombaViewModel()
+
     var body: some View {
         VStack(spacing: 16) {
             Text("Roomba")
                 .font(.title.bold())
-            GridView(position: Position(x: 0, y: 0), direction: .north)
+
+            GridView(position: viewModel.position, direction: viewModel.direction)
+
+            Text(viewModel.statusText)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+            ControlsView(
+                onForward: viewModel.moveForward,
+                onTurnRight: viewModel.turnRight
+            )
         }
         .padding()
     }
