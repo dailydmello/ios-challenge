@@ -33,17 +33,14 @@ Create a single-screen app that allows the user to move a "roomba" around a
 ```
 RoombaChallenge.xcodeproj
 RoombaChallenge/
-  RoombaChallengeApp.swift   – app entry point (done)
-  ContentView.swift          – the single screen: grid, direction arrow, two buttons (done)
-  RoombaViewModel.swift      – wires the UI to the model (done)
-  Roomba.swift               – ★ THE CHALLENGE: the model. Methods are TODO stubs.
-RoombaChallengeTests/
-  RoombaTests.swift          – the spec, as unit tests. They FAIL until Roomba is solved.
+  RoombaChallengeApp.swift   – app entry point
+  ContentView.swift          – an empty screen. Build everything from here.
+RoombaChallengeTests/        – empty unit test target. Write your own tests.
 ```
 
-The UI is already built and wired. Your job is the model in `Roomba.swift`,
-mirroring how the Android source separated `Roomba.kt` (movement/direction
-logic) from its Compose UI, with `RoombaTest` covering the model.
+You build the model, the UI, and the tests from scratch. A suggested split is a
+`Roomba` model (position, direction, movement rules) apart from the SwiftUI view,
+with unit tests that cover the model.
 
 ## Getting started
 
@@ -53,18 +50,9 @@ cd ios-challenge
 open RoombaChallenge.xcodeproj
 ```
 
-1. Run the app — you'll see the grid, the roomba at the bottom-left facing
-   north, and the two buttons. The buttons do nothing yet.
-2. Run the tests (⌘U) — they fail. They are the spec.
-3. Implement `turnRight()` and `moveForward()` in `Roomba.swift` until the
-   tests pass and the app behaves correctly.
-4. Commit and push your solution back:
-
-```bash
-git add -A
-git commit -m "Solve Roomba model"
-git push
-```
+1. Run the app. You see one line of text: "Roomba".
+2. Build the grid, the roomba, the direction indicator, and the two buttons.
+3. Write unit tests for the rules above. Make them pass.
 
 ## Practice it like the real thing (suggested)
 
