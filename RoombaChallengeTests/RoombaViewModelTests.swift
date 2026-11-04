@@ -36,6 +36,34 @@ struct RoombaViewModelTests {
         #expect(viewModel.statusText == "(0, 9) · East")
     }
 
+    @Test func headingKeepsGrowingClockwiseAcrossFullTurns() {
+        let viewModel = RoombaViewModel()
+        for _ in 0..<5 { viewModel.turnRight() }
+        #expect(viewModel.headingDegrees == 450)
+        #expect(viewModel.direction == .east)
+    }
+
+    @Test func wallHitTurnsHeadingAndCountsOnce() {
+        let viewModel = RoombaViewModel(
+            roomba: Roomba(start: Position(x: 0, y: 9), direction: .north)
+        )
+        viewModel.moveForward()
+        #expect(viewModel.wallHitCount == 1)
+        #expect(viewModel.headingDegrees == 90)
+    }
+
+    @Test func normalMoveDoesNotCountAsWallHit() {
+        let viewModel = RoombaViewModel()
+        viewModel.moveForward()
+        #expect(viewModel.wallHitCount == 0)
+        #expect(viewModel.headingDegrees == 0)
+    }
+
+    @Test func initialHeadingMatchesStartingDirection() {
+        let viewModel = RoombaViewModel(roomba: Roomba(direction: .south))
+        #expect(viewModel.headingDegrees == 180)
+    }
+
     @Test(arguments: [
         (Direction.north, "North"),
         (Direction.east, "East"),

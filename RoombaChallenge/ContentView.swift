@@ -8,7 +8,11 @@ struct ContentView: View {
             Text("Roomba")
                 .font(.title.bold())
 
-            GridView(position: viewModel.position, direction: viewModel.direction)
+            GridView(
+                position: viewModel.position,
+                direction: viewModel.direction,
+                heading: viewModel.headingDegrees
+            )
 
             Text(viewModel.statusText)
                 .font(.subheadline)
@@ -20,9 +24,19 @@ struct ContentView: View {
             )
         }
         .padding()
+        .sensoryFeedback(.impact, trigger: viewModel.wallHitCount)
     }
 }
 
 #Preview {
+    ContentView()
+}
+
+#Preview("Dark") {
+    ContentView()
+        .preferredColorScheme(.dark)
+}
+
+#Preview("Landscape", traits: .landscapeLeft) {
     ContentView()
 }

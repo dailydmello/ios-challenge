@@ -8,9 +8,11 @@ struct ControlsView: View {
         HStack(spacing: 12) {
             Button("Move Forward", systemImage: "arrow.up", action: onForward)
                 .buttonStyle(.borderedProminent)
+                .accessibilityIdentifier("moveForwardButton")
 
             Button("Turn Right", systemImage: "arrow.clockwise", action: onTurnRight)
                 .buttonStyle(.bordered)
+                .accessibilityIdentifier("turnRightButton")
         }
     }
 }
