@@ -45,7 +45,7 @@ struct GridView: View {
 
     private func roomba(side: CGFloat) -> some View {
         RoundedRectangle(cornerRadius: 4)
-            .fill(Color.accentColor)
+            .fill(Color.pink)
             .frame(width: side, height: side)
             .overlay {
                 Image(systemName: "arrow.up")
